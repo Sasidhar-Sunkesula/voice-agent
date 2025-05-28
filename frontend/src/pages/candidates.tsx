@@ -24,6 +24,7 @@ export function Candidates() {
   const [noticePeriod, setNoticePeriod] = useState("");
   const [experience, setExperience] = useState("");
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     fetchCandidates();
@@ -64,12 +65,12 @@ export function Candidates() {
   }
 
   async function handleDeleteCandidate(id: number) {
-    setLoading(true);
+    setDeleting(true);
     try {
       await axios.delete(`${API_URL}/api/candidates/${id}`);
       fetchCandidates();
     } finally {
-      setLoading(false);
+      setDeleting(false);
     }
   }
 
@@ -122,7 +123,7 @@ export function Candidates() {
               required
             />
             <Button type="submit" disabled={loading}>
-              Add
+              {loading ? "Adding..." : "Add"}
             </Button>
           </form>
         </CardContent>
@@ -136,6 +137,7 @@ export function Candidates() {
             <table className="min-w-full text-sm">
               <thead>
                 <tr>
+                  <th className="px-4 py-2 text-left">ID</th>
                   <th className="px-4 py-2 text-left">Name</th>
                   <th className="px-4 py-2 text-left">Phone</th>
                   <th className="px-4 py-2 text-left">Current CTC</th>
@@ -148,6 +150,7 @@ export function Candidates() {
               <tbody>
                 {candidates.map((candidate) => (
                   <tr key={candidate.id} className="border-b last:border-0">
+                    <td className="px-4 py-2">{candidate.id}</td>
                     <td className="px-4 py-2">{candidate.name}</td>
                     <td className="px-4 py-2">{candidate.phone}</td>
                     <td className="px-4 py-2">{candidate.currentCtc}</td>
@@ -159,9 +162,9 @@ export function Candidates() {
                         variant="destructive"
                         size="sm"
                         onClick={() => handleDeleteCandidate(candidate.id)}
-                        disabled={loading}
+                        disabled={deleting}
                       >
-                        Delete
+                        {deleting ? "Deleting..." : "Delete"}
                       </Button>
                     </td>
                   </tr>

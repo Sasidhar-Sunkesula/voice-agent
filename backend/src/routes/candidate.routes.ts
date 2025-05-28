@@ -55,10 +55,10 @@ router.post('/', async (req, res) => {
       data: {
         name,
         phone,
-        currentCtc,
-        expectedCtc,
-        noticePeriod,
-        experience
+        currentCtc: currentCtc ? Number(currentCtc) : null,
+        expectedCtc: expectedCtc ? Number(expectedCtc) : null,
+        noticePeriod: noticePeriod ? Number(noticePeriod) : null,
+        experience: experience ? Number(experience) : null
       }
     });
     
