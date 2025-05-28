@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model Candidate {
+  id            Int            @id @default(autoincrement())
+  name          String
+  phone         String
+  createdAt     DateTime       @default(now()) @map("created_at")
+  currentCtc    Float?         @map("current_ctc")
+  expectedCtc   Float?         @map("expected_ctc")
+  noticePeriod  Int?           @map("notice_period") // in days
+  experience    Int? // in months
+  appointments  Appointment[]
+  conversations Conversation[]
+
+  @@map("candidates")
+}
+
+model Job {
+  id           Int           @id @default(autoincrement())
+  title        String
+  description  String        @db.Text
+  requirements String        @db.Text
+  createdAt    DateTime      @default(now()) @map("created_at")
+  appointments Appointment[]
+
+  @@map("jobs")
+}
+
+model Appointment {
+  id          Int       @id @default(autoincrement())
+  jobId       Int       @map("job_id")
+  candidateId Int       @map("candidate_id")
+  dateTime    DateTime  @map("date_time")
+  status      String    @default("scheduled") // scheduled, completed, cancelled
+  job         Job       @relation(fields: [jobId], references: [id])
+  candidate   Candidate @relation(fields: [candidateId], references: [id])
+
+  @@map("appointments")
+}
+
+model Conversation {
+  id                Int       @id @default(autoincrement())
+  candidateId       Int       @map("candidate_id")
+  transcript        String    @db.Text
+  entitiesExtracted String?   @map("entities_extracted") @db.Text
+  createdAt         DateTime  @default(now()) @map("created_at")
+  candidate         Candidate @relation(fields: [candidateId], references: [id])
+
+  @@map("conversations")
+}

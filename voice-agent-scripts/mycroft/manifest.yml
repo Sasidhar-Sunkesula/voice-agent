@@ -1,0 +1,41 @@
+# This file details all information about a skill. This information is used by the
+# mycroft-skills repo, Mycroft Market, and other tools to provide services.
+
+# The url for the skill's git repository.
+url: https://github.com/yourusername/voice-agent-skill
+
+# A list of descriptive tags describing the skill. These tags are used to find
+# the skill in the Mycroft Marketplace and other tools.
+tags:
+  - voice-agent
+  - interview
+  - recruitment
+  - hr
+  - hiring
+
+# The skill's license.
+license: MIT
+
+# The name of the skill's author.
+author: Your Name
+
+# A short description of the skill.
+description: A voice agent for conducting candidate interviews and scheduling appointments
+
+# The skill's version.
+version: 0.1.0
+
+# The skill's icon. Must be a valid URL to an image file.
+icon: https://raw.githubusercontent.com/yourusername/voice-agent-skill/master/icon.png
+
+# The name of the skill. This is used in the Mycroft Market and other tools.
+name: Voice Agent Skill
+
+# The skill's category. This is used in the Mycroft Market and other tools.
+category: Productivity
+
+# The skill's dependencies. These are installed using pip.
+dependencies:
+  python:
+    - requests>=2.25.1
+    - python-dateutil>=2.8.1

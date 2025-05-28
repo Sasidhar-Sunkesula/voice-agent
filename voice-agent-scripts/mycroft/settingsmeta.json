@@ -1,0 +1,25 @@
+{
+    "skillMetadata": {
+        "sections": [
+            {
+                "name": "API Settings",
+                "fields": [
+                    {
+                        "name": "api_url",
+                        "type": "text",
+                        "label": "API URL",
+                        "value": "http://localhost:9000/api",
+                        "placeholder": "http://localhost:9000/api"
+                    },
+                    {
+                        "name": "company_name",
+                        "type": "text",
+                        "label": "Company Name",
+                        "value": "YourCompany",
+                        "placeholder": "YourCompany"
+                    }
+                ]
+            }
+        ]
+    }
+}
